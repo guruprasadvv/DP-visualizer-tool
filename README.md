@@ -11,14 +11,16 @@ Algorithms Implemented:
 
 2)0/1 Knapsack
 
-3)Floyd-Warshall Algorithm
+3)Assembly Line Scheduling
 
-4)Subset Sum
+4)Floyd-Warshall Algorithm
 
-5)Matrix Chain Multiplication
+5)Subset Sum
 
-6)Traveling Salesman Problem (TSP)
+6)Matrix Chain Multiplication
 
-7)Count Subsets with Sum k
+7)Traveling Salesman Problem (TSP)
 
-8)Palindrome Partitioning
+8)Count Subsets with Sum k
+
+9)Palindrome Partitioning
