@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Programming Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span style="color: #00e5a0;">⚡</span>
+                DP Visualizer
+            </h1>
+            <p>Step through DP algorithms — watch the table fill cell by cell with recursive context side by side</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-grid">
+            <!-- Algorithm Selection -->
+            <div class="control-panel">
+                <div class="panel-title">Algorithm</div>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="lcs" checked>
+                        <div class="label-content">
+                            <div class="label-main">Longest Common Subsequence</div>
+                            <div class="label-desc">Find LCS of two strings</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="knapsack">
+                        <div class="label-content">
+                            <div class="label-main">0/1 Knapsack</div>
+                            <div class="label-desc">Maximize value within capacity</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="assembly">
+                        <div class="label-content">
+                            <div class="label-main">Assembly Line Scheduling</div>
+                            <div class="label-desc">Find min time through 2 lines</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="floyd">
+                        <div class="label-content">
+                            <div class="label-main">Floyd–Warshall Algorithm</div>
+                            <div class="label-desc">All-pairs shortest paths</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="subset">
+                        <div class="label-content">
+                            <div class="label-main">Subset Sum Problem</div>
+                            <div class="label-desc">Check if subset equals target</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="mcm">
+                        <div class="label-content">
+                            <div class="label-main">Matrix Chain Multiplication</div>
+                            <div class="label-desc">Minimize multiplication operations</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="tsp">
+                        <div class="label-content">
+                            <div class="label-main">Traveling Salesman Problem</div>
+                            <div class="label-desc">Find shortest tour (Held-Karp, max 6 cities)</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="countsubsets">
+                        <div class="label-content">
+                            <div class="label-main">Count Subsets with Sum K</div>
+                            <div class="label-desc">Count how many subsets sum to target K</div>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="palindrome">
+                        <div class="label-content">
+                            <div class="label-main">Palindrome Partitioning</div>
+                            <div class="label-desc">Min cuts to split string into palindromes</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Parameters -->
+            <div class="control-panel">
+                <div class="panel-title">Parameters</div>
+
+                <!-- LCS Parameters -->
+                <div id="lcs-params">
+                    <div class="form-group">
+                        <label>String 1</label>
+                        <input type="text" id="input1" value="AGGTAB" placeholder="Enter first string">
+                    </div>
+                    <div class="form-group">
+                        <label>String 2</label>
+                        <input type="text" id="input2" value="GXTXAYB" placeholder="Enter second string">
+                    </div>
+                </div>
+
+                <!-- Knapsack Parameters -->
+                <div id="knapsack-params" class="hidden">
+                    <div class="form-group">
+                        <label>Capacity</label>
+                        <input type="number" id="knapsack-capacity" value="10" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Weights (comma-separated)</label>
+                        <input type="text" id="knapsack-weights" value="2,3,4,5" placeholder="e.g., 2,3,4,5">
+                    </div>
+                    <div class="form-group">
+                        <label>Values (comma-separated)</label>
+                        <input type="text" id="knapsack-values" value="3,4,5,6" placeholder="e.g., 3,4,5,6">
+                    </div>
+                </div>
+
+                <!-- Assembly Line Parameters -->
+                <div id="assembly-params" class="hidden">
+                    <div class="form-group">
+                        <label>Time Line 1 (comma-separated)</label>
+                        <input type="text" id="assembly-time1" value="7,9,3,4,8,4" placeholder="e.g., 7,9,3,4,8,4">
+                    </div>
+                    <div class="form-group">
+                        <label>Time Line 2 (comma-separated)</label>
+                        <input type="text" id="assembly-time2" value="8,5,6,4,5,7" placeholder="e.g., 8,5,6,4,5,7">
+                    </div>
+                    <div class="form-group">
+                        <label>Transfer Times (comma-separated)</label>
+                        <input type="text" id="assembly-transfer" value="2,2,3,3,4" placeholder="e.g., 2,2,3,3,4">
+                    </div>
+                </div>
+
+                <!-- Floyd-Warshall Parameters -->
+                <div id="floyd-params" class="hidden">
+                    <div class="form-group">
+                        <label>Graph Matrix (rows separated by |)</label>
+                        <textarea id="floyd-matrix" rows="4">0,7,INF,5|7,0,3,9|INF,3,0,2|5,9,2,0</textarea>
+                    </div>
+                </div>
+
+                <!-- Subset Sum Parameters -->
+                <div id="subset-params" class="hidden">
+                    <div class="form-group">
+                        <label>Array (comma-separated)</label>
+                        <input type="text" id="subset-array" value="3,5,4,7" placeholder="e.g., 3,5,4,7">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Sum</label>
+                        <input type="number" id="subset-target" value="10" min="1">
+                    </div>
+                </div>
+
+                <!-- MCM Parameters -->
+                <div id="mcm-params" class="hidden">
+                    <div class="form-group">
+                        <label>Matrix Dimensions (comma-separated)</label>
+                        <input type="text" id="mcm-dimensions" value="10,30,5,60" placeholder="e.g., 10,30,5,60">
+                    </div>
+                    <small>Matrices: A(10×30), B(30×5), C(5×60)</small>
+                </div>
+
+                <!-- TSP Parameters -->
+                <div id="tsp-params" class="hidden">
+                    <div class="form-group">
+                        <label>Distance Matrix (rows separated by |, max 6 cities)</label>
+                        <textarea id="tsp-matrix" rows="4">0,10,15,20|10,0,35,25|15,35,0,30|20,25,30,0</textarea>
+                    </div>
+                </div>
+
+                <!-- Count Subsets Parameters -->
+                <div id="countsubsets-params" class="hidden">
+                    <div class="form-group">
+                        <label>Array (comma-separated, non-negative integers)</label>
+                        <input type="text" id="countsubsets-array" value="2,3,5,6,8,10" placeholder="e.g., 2,3,5,6,8,10">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Sum K</label>
+                        <input type="number" id="countsubsets-target" value="10" min="0">
+                    </div>
+                </div>
+
+                <!-- Palindrome Partitioning Parameters -->
+                <div id="palindrome-params" class="hidden">
+                    <div class="form-group">
+                        <label>Input String</label>
+                        <input type="text" id="palindrome-string" value="aabbc" placeholder="e.g., aabbc">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn-primary" id="compute-btn">
+                <span>⚡</span> Compute
+            </button>
+            <button class="btn-secondary" id="reset-btn">
+                <span>↻</span> Reset
+            </button>
+        </div>
+
+        <!-- Table Visualization -->
+        <div id="table-section">
+            <div class="empty-state">
+                <p>Click "Compute" to visualize the DP table</p>
+                <p>Watch as each cell is filled — step by step, with recursive context side by side</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
