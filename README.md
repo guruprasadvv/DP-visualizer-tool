@@ -19,4 +19,6 @@ Algorithms Implemented:
 
 6)Traveling Salesman Problem (TSP)
 
-7)Palindrome Partitioning
+7)Count Subsets with Sum k
+
+8)Palindrome Partitioning
